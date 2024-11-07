@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductFormRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('product.index', compact('products'));
+        $categories = Category::all();
+
+        return view('product.index', compact(['products', 'categories']));
     }
 
     /**
@@ -21,13 +25,26 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories = Category::all();
+        return view('product.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {}
+    public function store(ProductFormRequest $request)
+    {
+        // Validate the request...
+        $validated = $request->validated();
+        Product::create([
+            'name' => $validated['name'],
+            'price_normal' => $validated['price_normal'],
+            'price_big' => $validated['price_big'] ?? null,
+            'category_id' => $validated['category_id'],
+        ]);
+
+        return redirect()->route('product.index')->with('success', 'Produit ajouté avec succès!');
+    }
 
     /**
      * Display the specified resource.
