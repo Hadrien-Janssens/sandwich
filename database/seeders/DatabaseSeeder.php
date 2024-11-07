@@ -18,6 +18,30 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => 'password',
+            'role_id' => 1,
+        ]);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'user@example.com',
+            'password' => 'password',
+            'role_id' => 3,
+        ]);
+        User::factory()->create([
+            'name' => 'order User',
+            'email' => 'order@example.com',
+            'password' => 'password',
+            'role_id' => 2,
+        ]);
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => 'password',
+            'role_id' => 1,
+        ]);
+
+        $this->call([
+            RoleSeeder::class,
         ]);
     }
 }
