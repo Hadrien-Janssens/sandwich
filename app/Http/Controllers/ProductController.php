@@ -59,15 +59,22 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        return view('product.edit', compact(['product', 'categories']));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductFormRequest $request, Product $product)
     {
-        //
+        // Validate the request...
+        $validated = $request->validated();
+
+        // Update the product
+        $product->update($validated);
+
+        return back()->with('edit-success', 'Produit modifié avec succès!');
     }
 
     /**
@@ -75,6 +82,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('product.index')->with('success', 'Produit supprimé avec succès!');
     }
 }
