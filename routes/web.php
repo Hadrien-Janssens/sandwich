@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +16,6 @@ Route::middleware('auth')->group(function () {
         return view('order.index');
     })->name('order.index');
 
-    Route::get('/user', function () {
-        if (Auth::user()->role->name !== 'admin') {
-            return redirect()->route('product.index');
-        }
-        return view('user.index');
-    })->name('user.index');
 
     Route::get('/order-admin', function () {
         if (Auth::user()->role->name === 'user') {
@@ -29,6 +25,8 @@ Route::middleware('auth')->group(function () {
     })->name('orderAdmin.index');
 
     Route::resource('product', ProductController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('invitation', InvitationController::class)->only(['create', 'store']);
 });
 
 require __DIR__ . '/auth.php';
