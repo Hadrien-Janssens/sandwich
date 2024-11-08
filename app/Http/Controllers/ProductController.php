@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -59,6 +62,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        // cheking if the user can update the product
+        $this->authorize('update', $product);
+
         $categories = Category::all();
         return view('product.edit', compact(['product', 'categories']));
     }
@@ -68,6 +74,9 @@ class ProductController extends Controller
      */
     public function update(ProductFormRequest $request, Product $product)
     {
+        // cheking if the user can update the product
+        $this->authorize('update', $product);
+
         // Validate the request...
         $validated = $request->validated();
 
