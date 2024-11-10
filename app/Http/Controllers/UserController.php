@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserFormRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Notifications\Invitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -30,8 +32,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        // $roles = Role::all();
-        // return view('user.create', compact('roles'));
+        $roles = Role::all();
+
+        return view('user.invite', compact('roles'));
     }
 
     /**
@@ -39,16 +42,15 @@ class UserController extends Controller
      */
     public function store(UserFormRequest $request)
     {
-        // Validate the request...
         $validated = $request->validated();
 
-        // Create a new user
-        User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'role_id' => $validated['role_id'],
-            'password' => bcrypt($validated['password']),
-        ]);
+        $token = Str::random(32);
+
+        $user = User::create([...$validated, 'token' => $token]);
+
+        $user->notify(new Invitation($token));
+
+        return back()->with('message', 'Invitation sent!');
     }
 
     /**
@@ -64,9 +66,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        // $user = User::where('token', $token)->first();
-
-        // return view('user.edit', compact('user'));
+        //
     }
 
     /**

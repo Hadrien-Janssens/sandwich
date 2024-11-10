@@ -6,7 +6,7 @@
 
                 <p>ou</p>
                 <x-primary-button> <a
-                        href="{{ route('invitation.create') }}">{{ __('inviter un utilisateur') }}</a></x-primary-button>
+                        href="{{ route('user.create') }}">{{ __('inviter un utilisateur') }}</a></x-primary-button>
 
             </div>
         </div>

@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('product', ProductController::class);
     Route::resource('user', UserController::class);
-    Route::resource('invitation', InvitationController::class)->only(['create', 'store']);
 });
 
 Route::get('registere/update/{user}', [UserController::class, 'update'])->name('updateRegistere');

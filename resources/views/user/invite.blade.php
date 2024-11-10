@@ -5,7 +5,7 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <h1 class="font-bold text-lg mb-3">Inviter un utilisateur</h1>
 
-                <form action="{{ route('invitation.store') }}" class="mt-6 space-y-6" method="POST">
+                <form action="{{ route('user.store') }}" class="mt-6 space-y-6" method="POST">
                     @csrf
                     <div>
                         <x-input-label for="name" :value="__('Name')" />
