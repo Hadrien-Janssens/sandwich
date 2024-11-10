@@ -3,6 +3,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <h1 class="font-bold text-lg mb-3">Compléter mon inscription</h1>
+            {{-- afficher les erreurs de validation --}}
+            @if ($errors->any())
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
             <form action="{{ route('updateRegistere', $user) }}" class="mt-6 space-y-6">
                 @csrf
@@ -21,8 +31,8 @@
                 </div>
                 <div>
                     <x-input-label for="confirmation" :value="__('Confirmation')" />
-                    <x-text-input id="confirmation" name="confirmation" type="password" class="mt-1 block w-full"
-                        :value="old('confirmation')" required />
+                    <x-text-input id="confirmation" name="password_confirmation" type="password"
+                        class="mt-1 block w-full" :value="old('confirmation')" required />
                     <x-input-error class="mt-2" :messages="$errors->get('confirmation')" />
                 </div>
                 <x-primary-button class="mt-3">S'enregistrer</x-primary-button>

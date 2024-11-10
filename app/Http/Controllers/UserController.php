@@ -17,6 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        // Protect the route from non-admin users
         if (Auth::user()->role->name !== 'admin') {
             return redirect()->route('product.index');
         }
@@ -56,41 +57,44 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        return view('user.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $token)
     {
-        //
+        $user = User::where('token', $token)->firstOrFail();
+
+        return view('user.edit', compact('user'));
     }
+
+
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
     {
-        //logout user
         Auth::logout();
 
         //validate request
-
         //check if password == password_confirmation
+        $request->validate([
+            'password' => 'required',
+            'password_confirmation' => 'required_with:password|same:password|min:8',
+        ]);
 
-        //update user
         $user->update([
-            // 'password' => bcrypt($request->input("password")),
             'password' => $request->input("password"),
         ]);
 
-        //login user
         Auth::login($user);
 
-        //redirect
         return redirect()->route('product.index');
     }
 

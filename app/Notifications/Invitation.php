@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -36,9 +37,11 @@ class Invitation extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        // $user = User::where('token', $this->token)->first();
+
         return (new MailMessage)
             ->line('Bienvenue sur notre application!')
-            ->action('Inscription', route('registere', ['token' => $this->token]))
+            ->action('Inscription', route('user.edit', ['token' => $this->token]))
             ->line('Merci d\'utiliser l\'app!');
     }
 

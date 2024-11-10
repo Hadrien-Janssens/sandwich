@@ -26,7 +26,7 @@
                         @foreach ($users as $user)
                             @if ($user->role->name === $role->name)
                                 <li class=" flex justify-between items-center gap-5 ">
-                                    <a href="{{ $role }}"
+                                    <a href="{{ route('user.show', $user) }}"
                                         class="grow dark:hover:bg-slate-900 hover:bg-slate-100 rounded-md">
                                         <div class="flex gap-5 items-center p-2">
                                             <p>{{ $user->name }}</p>
