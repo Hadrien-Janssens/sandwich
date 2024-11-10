@@ -21,19 +21,21 @@ class InvitationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'name' => 'required|min:3',
             'email' => 'required|email',
             'role_id' => 'required|exists:roles,id'
         ]);
         $token = Str::random(32);
 
         $user = User::create([
+            'name' => request('name'),
             'email' => request('email'),
             'role_id' => request('role_id'),
             'token' => $token
         ]);
 
-        //  $user->notify(new Invitation($token));
-        return (new Invitation($token))->toMail($user);
+        $user->notify(new Invitation($token));
+        // return (new Invitation($token))->toMail($user);
 
 
         return back()->with('message', 'Invitation sent!');

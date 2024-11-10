@@ -4,8 +4,16 @@ use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/registere', function (Request $request) {
+    $token = $request->query('token');
+    $user = User::where('token', $token)->first();
+    return view('user.edit', compact('user'));
+})->name('registere');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,5 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('invitation', InvitationController::class)->only(['create', 'store']);
 });
+
+Route::get('registere/update/{user}', [UserController::class, 'update'])->name('updateRegistere');
 
 require __DIR__ . '/auth.php';

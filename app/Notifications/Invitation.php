@@ -37,9 +37,9 @@ class Invitation extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('Bienvenue sur notre application!')
+            ->action('Inscription', route('registere', ['token' => $this->token]))
+            ->line('Merci d\'utiliser l\'app!');
     }
 
     /**

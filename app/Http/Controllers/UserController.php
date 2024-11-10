@@ -64,15 +64,34 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // $user = User::where('token', $token)->first();
+
+        // return view('user.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        //logout user
+        Auth::logout();
+
+        //validate request
+
+        //check if password == password_confirmation
+
+        //update user
+        $user->update([
+            // 'password' => bcrypt($request->input("password")),
+            'password' => $request->input("password"),
+        ]);
+
+        //login user
+        Auth::login($user);
+
+        //redirect
+        return redirect()->route('product.index');
     }
 
     /**

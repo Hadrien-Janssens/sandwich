@@ -1,7 +1,25 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-end h-16">
+        <!-- Navigation Links -->
+        {{-- <ul class="flex">
+            @if (Auth::user()->role->name == 'admin')
+                <li class="hover:bg-slate-200 dark:hover:bg-gray-800  px-1 rounded duration-200"><a
+                        href="{{ route('user.index') }}"
+                        class="{{ Route::currentRouteName() == 'user.index' ? 'underline' : '' }}">Gestion
+                        utilisateur</a></li> |
+            @endif
+            @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'order')
+                <li class="hover:bg-slate-200 dark:hover:bg-gray-800  px-1 rounded duration-200"><a
+                        href="{{ route('orderAdmin.index') }}"
+                        class="{{ Route::currentRouteName() == 'orderAdmin.index' ? 'underline' : '' }}">Gestion des
+                        commandes</a>
+                </li>
+            @endif
+        </ul> --}}
+        <div class="flex justify-end items-center h-16">
+
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -27,13 +45,27 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @if (Auth::user()->role->name == 'admin')
+                            <x-dropdown-link :href="route('user.index')">
+                                Gestion
+                                utilisateur
+                            </x-dropdown-link>
+                        @endif
+
+                        @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'order')
+                            <x-dropdown-link :href="route('orderAdmin.index')">
+                                Gestion des
+                                commandes
+                            </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                    this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
