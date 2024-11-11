@@ -14,7 +14,10 @@ class Product extends Model
         'category_id',
     ];
 
-    // category relationship
+
+    /**
+     * Get the category that owns the product.
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);

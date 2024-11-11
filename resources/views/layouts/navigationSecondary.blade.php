@@ -5,8 +5,8 @@
     ];
 @endphp
 
-<nav class="py-2">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
+<nav class="max-w-7xl mx-auto px-6 lg:px-8 py-2 flex justify-between items-center">
+    <div class="grow">
         <ul class="flex gap-3 ">
             @foreach ($links as $name => $routeName)
                 <li class="hover:bg-slate-200 dark:hover:bg-gray-800  px-1 rounded duration-200">
@@ -16,4 +16,7 @@
             @endforeach
         </ul>
     </div>
+    <x-secondary-button id="panier-btn">
+        Panier
+    </x-secondary-button>
 </nav>

@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Order;
+use App\Models\OrderLigne;
 use App\Models\Product;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -45,6 +47,33 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             ProductSeeder::class,
             CategorySeeder::class,
+        ]);
+
+        Order::create([
+            'user_id' => 1
+        ]);
+        OrderLigne::create([
+            'order_id' => 1,
+            'product_id' => 1,
+            'quantity' => 2,
+            'size' => 'normal',
+        ]);
+        OrderLigne::create([
+            'order_id' => 1,
+            'product_id' => 2,
+            'quantity' => 1,
+            'size' => 'normal',
+        ]);
+
+        Order::create([
+            'user_id' => 1,
+            'is_sent' => true
+        ]);
+        OrderLigne::create([
+            'order_id' => 2,
+            'product_id' => 3,
+            'quantity' => 5,
+            'size' => 'normal',
         ]);
     }
 }
