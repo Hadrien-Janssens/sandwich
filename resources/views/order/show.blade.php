@@ -4,12 +4,17 @@
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <h1 class="font-bold text-lg ">Order #{{ $order->id }}</h1>
                 <ul>
-                    <li class="px-3">Article #1</li>
-                    <li class="px-3">Article #2</li>
-                    <li class="px-3">Article #3</li>
+                    @foreach ($order->ligneOrders as $ligneOrder)
+                        <li class="px-3 flex justify-between">
+                            <span>{{ $ligneOrder->product->name }}</span>
+                            <div class="flex gap-5">
+                                <span>taille :{{ $ligneOrder->size }}</span>
+                                <span>{{ $ligneOrder->product->price_normal }}€</span>
+                            </div>
+                        </li>
+                    @endforeach
                 </ul>
                 <div class="flex justify-end">
-
                     {{-- Admin button --}}
                     @if (Auth::user()->role->name == 'admin')
                         <div class="flex gap-3">

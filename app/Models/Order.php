@@ -16,4 +16,9 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function ligneOrders()
+    {
+        return $this->hasMany(OrderLigne::class);
+    }
 }

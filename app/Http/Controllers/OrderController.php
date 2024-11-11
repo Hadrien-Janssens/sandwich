@@ -36,8 +36,10 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order $order)
+    public function show(string $orderId)
     {
+        TODO: //show order only if is already sent because I use de edit view directly to show the order details
+        $order = Order::with('ligneOrders.product')->findOrFail($orderId);
         return view('order.show', compact('order'));
     }
 
@@ -62,6 +64,14 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
+        TODO: //delete order only if is already paid
         //
+    }
+
+    public function orderInProcess()
+    {
+        $order = Order::with('ligneOrders.product')->where('is_sent', false)->first();
+
+        return view('order.show', compact('order'));
     }
 }

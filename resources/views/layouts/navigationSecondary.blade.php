@@ -16,7 +16,10 @@
             @endforeach
         </ul>
     </div>
-    <x-secondary-button id="panier-btn">
-        Panier
-    </x-secondary-button>
+    <form action="{{ route('order.orderInProcess') }}">
+        <x-secondary-button type='submit'>
+            Panier
+        </x-secondary-button>
+    </form>
+
 </nav>

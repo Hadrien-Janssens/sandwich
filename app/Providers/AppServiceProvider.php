@@ -20,12 +20,5 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-        $Order_inProcess = Order::query()
-            ->where('user_id', Auth::id())
-            ->where('is_sent', false)
-            ->first();
-        View::share('Order_inProcess', $Order_inProcess);
-    }
+    public function boot(): void {}
 }

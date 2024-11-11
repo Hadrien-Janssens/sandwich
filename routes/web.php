@@ -5,10 +5,12 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 
 Route::middleware('auth')->group(function () {
@@ -25,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('product', ProductController::class);
     Route::resource('user', UserController::class);
+    Route::get('/order/orderInProcess', [OrderController::class, 'orderInProcess'])->name('order.orderInProcess');
     Route::resource('order', OrderController::class);
 });
 
