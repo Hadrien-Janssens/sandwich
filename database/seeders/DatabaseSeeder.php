@@ -64,6 +64,13 @@ class DatabaseSeeder extends Seeder
             'quantity' => 1,
             'size' => 'normal',
         ]);
+        OrderLigne::create([
+            'order_id' => 1,
+            'product_id' => 2,
+            'quantity' => 2,
+            'size' => 'big',
+        ]);
+
 
         Order::create([
             'user_id' => 1,
@@ -74,6 +81,12 @@ class DatabaseSeeder extends Seeder
             'product_id' => 3,
             'quantity' => 5,
             'size' => 'normal',
+        ]);
+
+        Order::create([
+            'user_id' => 1,
+            'is_sent' => true,
+            'is_paid' => true
         ]);
     }
 }

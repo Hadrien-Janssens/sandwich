@@ -39,8 +39,18 @@ class OrderController extends Controller
     public function show(string $orderId)
     {
         TODO: //show order only if is already sent because I use de edit view directly to show the order details
+
         $order = Order::with('ligneOrders.product')->findOrFail($orderId);
-        return view('order.show', compact('order'));
+
+        $total = $order->ligneOrders->sum(function ($ligneOrder) {
+            if ($ligneOrder->size === 'normal') {
+                return $ligneOrder->product->price_normal * $ligneOrder->quantity;
+            } else {
+                return $ligneOrder->product->price_big * $ligneOrder->quantity;
+            }
+        });
+
+        return view('order.show', compact('order', 'total'));
     }
 
     /**
@@ -72,6 +82,14 @@ class OrderController extends Controller
     {
         $order = Order::with('ligneOrders.product')->where('is_sent', false)->first();
 
-        return view('order.show', compact('order'));
+        $total = $order->ligneOrders->sum(function ($ligneOrder) {
+            if ($ligneOrder->size === 'normal') {
+                return $ligneOrder->product->price_normal * $ligneOrder->quantity;
+            } else {
+                return $ligneOrder->product->price_big * $ligneOrder->quantity;
+            }
+        });
+
+        return view('order.show', compact('order', 'total'));
     }
 }

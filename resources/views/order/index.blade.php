@@ -10,7 +10,9 @@
                         <a href="{{ route('order.show', $order) }}"
                             class="grow dark:hover:bg-slate-900 hover:bg-slate-100 rounded-md">
                             <div class="flex gap-5 items-center p-2">
-                                <p>Order #{{ $order->id }} du {{ $order->created_at->format('d/m/Y') }}</p>
+                                <p>Order #{{ $order->id }} du {{ $order->created_at->format('d/m/Y') }}
+                                </p>
+                                <p class="italic">{{ $order->is_paid || !$order->is_sent ? '' : 'à régler' }}</p>
                             </div>
                         </a>
                         <div>
