@@ -7,6 +7,9 @@
                     <h2>Catégorie : {{ $product->category->name }}</h2>
                 </div>
                 <p>Prix : {{ $product->price_normal }} €</p>
+                @if ($product->price_big)
+                    <p>Prix grande taille : {{ $product->price_big }} €</p>
+                @endif
                 @if ($product->ingredients)
                     <p>Ingrédients : {{ $product->ingredients }}</p>
                 @endif

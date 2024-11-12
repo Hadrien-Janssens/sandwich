@@ -13,7 +13,8 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'drinks',
+            'boissons froides',
+            'boissons chaudes',
             'sandwiches classiques',
             'sandwiches créatifs',
             'pâtes',
