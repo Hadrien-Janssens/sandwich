@@ -42,6 +42,12 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
             'role_id' => 1,
         ]);
+        User::factory()->create([
+            'name' => 'hadrien janssens',
+            'email' => 'hadrien.janssens7@gmail.com',
+            'password' => 'password',
+            'role_id' => 1,
+        ]);
 
         $this->call([
             RoleSeeder::class,
