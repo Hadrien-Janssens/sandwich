@@ -2,10 +2,11 @@
     $links = [
         'Les Produits' => 'product.index',
         'Mes commandes' => 'order.index',
+        'Panier' => 'order.orderInProcess',
     ];
 @endphp
 
-<nav class="max-w-7xl mx-auto px-6 lg:px-8 py-2 flex justify-between items-center">
+<nav class="max-w-7xl  px-6 lg:px-8 py-2 flex justify-between items-center">
     <div class="grow">
         <ul class="flex gap-3 ">
             @foreach ($links as $name => $routeName)
@@ -14,13 +15,7 @@
                         class="{{ Route::currentRouteName() == $routeName ? 'underline' : '' }}">{{ $name }}</a>
                 </li>
             @endforeach
+
         </ul>
     </div>
-
-    <form action="{{ route('order.orderInProcess') }}">
-        <x-secondary-button type='submit'>
-            Panier
-        </x-secondary-button>
-    </form>
-
 </nav>

@@ -6,7 +6,9 @@ use App\Http\Controllers\OrderLigneController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -14,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
 
+
+
 Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        $products = Product::all();
+        $categories = Category::all();
+        return view('product.index', compact(['products', 'categories']));
+    });
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

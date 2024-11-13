@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12">
+    <div class="pt-12 pb-3">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-6">
             <div class="flex items-center justify-between grow gap-2">
                 <x-text-input placeholder="Rechercher un produit ..." class="grow" />
@@ -37,7 +37,7 @@
                                         <form action="{{ route('orderLigne.store') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <x-primary-button type="submit">Ajouter au panier</x-primary-button>
+                                            <x-secondary-button type="submit">Ajouter au panier</x-secondary-button>
                                         </form>
                                     </div>
                                 </li>

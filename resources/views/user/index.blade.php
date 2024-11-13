@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-12">
+    <div class="pt-12 pb-3">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-6">
             <div class="flex items-center justify-between grow gap-2">
                 <x-text-input placeholder="Rechercher un utilisateur ..." class="grow" />
