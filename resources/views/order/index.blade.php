@@ -5,7 +5,7 @@
         <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
 
             <ul class="space-y-2">
-                @foreach ($orders as $order)
+                @forelse ($orders as $order)
                     <li class=" flex justify-between items-center gap-5 ">
                         <a href="{{ route('order.show', $order) }}"
                             class="grow dark:hover:bg-slate-900 hover:bg-slate-100 rounded-md">
@@ -23,7 +23,11 @@
                             @endif
                         </div>
                     </li>
-                @endforeach
+                @empty
+                    <li class=" flex justify-between items-center gap-5 ">
+                        <p>Vous n'avez pas encore de commande</p>
+                    </li>
+                @endforelse
             </ul>
         </div>
     </div>
