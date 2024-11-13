@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
+    protected $casts = [
+        'ingredients' => 'array',
+    ];
+
     protected $fillable = [
         'name',
         'price_normal',

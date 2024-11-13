@@ -8,8 +8,6 @@ use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
 {
-
-
     /**
      * Determine whether the user can update the model.
      */

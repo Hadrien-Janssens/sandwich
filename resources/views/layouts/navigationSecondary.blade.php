@@ -16,6 +16,7 @@
             @endforeach
         </ul>
     </div>
+
     <form action="{{ route('order.orderInProcess') }}">
         <x-secondary-button type='submit'>
             Panier

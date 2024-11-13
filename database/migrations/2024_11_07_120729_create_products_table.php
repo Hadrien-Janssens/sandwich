@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('price_normal');
             $table->integer('price_big')->nullable();
             $table->foreignId('category_id');
+            $table->json('ingredients')->nullable();
             $table->timestamps();
         });
     }

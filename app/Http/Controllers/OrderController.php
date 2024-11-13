@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $orders = Order::all();
-
+        $orders = Order::orderBy('created_at', 'desc')->get();
         return view('order.index', compact('orders'));
     }
 
@@ -38,8 +41,6 @@ class OrderController extends Controller
      */
     public function show(string $orderId)
     {
-        TODO: //show order only if is already sent because I use de edit view directly to show the order details
-
         $order = Order::with('ligneOrders.product')->findOrFail($orderId);
 
         $total = $order->ligneOrders->sum(function ($ligneOrder) {
@@ -80,7 +81,13 @@ class OrderController extends Controller
 
     public function orderInProcess()
     {
-        $order = Order::with('ligneOrders.product')->where('is_sent', false)->first();
+
+        $order = Order::with('ligneOrders.product')->where('is_sent', false)->where('user_id', Auth::id())->first();
+
+        // if havn't order in process, redirect to product.index
+        if (!$order) {
+            return view('order.show');
+        }
 
         $total = $order->ligneOrders->sum(function ($ligneOrder) {
             if ($ligneOrder->size === 'normal') {
@@ -91,5 +98,13 @@ class OrderController extends Controller
         });
 
         return view('order.show', compact('order', 'total'));
+    }
+
+    public function sendOrder()
+    {
+        $order = Order::where('is_sent', false)->where('user_id', Auth::id())->first();
+        $order->is_sent = true;
+        $order->save();
+        return redirect()->route('order.index');
     }
 }

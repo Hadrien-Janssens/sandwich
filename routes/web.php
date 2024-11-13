@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderLigneController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -28,7 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('product', ProductController::class);
     Route::resource('user', UserController::class);
     Route::get('/order/orderInProcess', [OrderController::class, 'orderInProcess'])->name('order.orderInProcess');
+    Route::get('order/send', [OrderController::class, 'sendOrder'])->name('order.send');
     Route::resource('order', OrderController::class);
+    Route::resource('orderLigne', OrderLigneController::class);
 });
 
 
