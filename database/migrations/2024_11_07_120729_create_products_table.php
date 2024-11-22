@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price_normal');
             $table->integer('price_big')->nullable();
-            $table->foreignId('category_id');
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->json('ingredients')->nullable();
             $table->timestamps();
         });

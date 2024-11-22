@@ -12,7 +12,8 @@
                     {{-- Admin button --}}
                     @if (Auth::user()->role->name == 'admin')
                         <div class="flex gap-3">
-                            <form action="{{ route('user.edit', $user) }}">
+                            @dump($user->id)
+                            <form action="{{ route('profile.edit', ['id' => $user->id]) }}">
                                 @csrf
                                 <x-secondary-button type="submit" class="mt-3">Modifier
                                     l'utilisateur</x-secondary-button>

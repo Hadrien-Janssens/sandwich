@@ -67,13 +67,11 @@ class UserController extends Controller
      */
     public function edit(string $token)
     {
+
         $user = User::where('token', $token)->firstOrFail();
 
         return view('user.edit', compact('user'));
     }
-
-
-
 
     /**
      * Update the specified resource in storage.
@@ -101,8 +99,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(String $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        // User::destroy($user->id);
+
+        return redirect()->route('user.index')->with('message', 'User deleted!');
     }
 }

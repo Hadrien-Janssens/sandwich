@@ -10,6 +10,7 @@ class Order extends Model
         'user_id',
         'is_paid',
         'is_sent',
+        'is_validated'
     ];
 
     public function user()

@@ -38,7 +38,7 @@
                         @endif
 
                         @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'order')
-                            <x-dropdown-link :href="route('orderAdmin.index')">
+                            <x-dropdown-link :href="route('orderAdmin.in_process')">
                                 Gestion des
                                 commandes
                             </x-dropdown-link>

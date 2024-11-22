@@ -15,8 +15,10 @@
                                 </div>
                             </a>
                             <div>
-                                @if ($order->is_sent)
+                                @if ($order->is_sent && !$order->is_validated)
                                     <span>Envoyée</span>
+                                @elseif ($order->is_validated)
+                                    <span>Validée</span>
                                 @else
                                     <span class="text-orange-500">En cours</span>
                                 @endif

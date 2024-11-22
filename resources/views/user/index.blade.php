@@ -1,4 +1,9 @@
 <x-app-layout>
+    @if (session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="pt-12 pb-3">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 space-y-6">
             <div class="flex items-center justify-between grow gap-2">
@@ -7,10 +12,10 @@
                 <p>ou</p>
                 <x-primary-button> <a
                         href="{{ route('user.create') }}">{{ __('inviter un utilisateur') }}</a></x-primary-button>
-
             </div>
         </div>
     </div>
+
 
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">

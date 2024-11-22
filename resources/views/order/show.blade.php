@@ -30,30 +30,34 @@
                         </li>
                     </ul>
                     <div class="flex justify-end">
-                        @if (Auth::user()->role->name == 'admin')
-                            <div class="flex gap-3">
+                        <div class="flex gap-3">
+                            @if ($order->is_sent && Auth::user()->role !== 'user')
+                                <form action="{{ route('order.send') }}">
+                                    @csrf
+                                    <x-secondary-button type="submit" class="mt-3">valider</x-secondary-button>
+                                </form>
+                            @endif
 
-                                @if (!$order->is_sent)
-                                    <form action="{{ route('order.send') }}">
-                                        @csrf
-                                        <x-secondary-button type="submit" class="mt-3">Envoyer</x-secondary-button>
-                                    </form>
-                                    <form action="{{ route('order.destroy', $order) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-secondary-button type="submit" class="mt-3">Annuler</x-secondary-button>
-                                    </form>
-                                @endif
-                                @if ($order->is_paid)
-                                    <form action="{{ route('order.destroy', $order) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-secondary-button type="submit" class="mt-3">Supprimer</x-secondary-button>
-                                    </form>
-                                @endif
-                            </div>
+                            @if (!$order->is_sent && $order->user_id === Auth::id())
+                                <form action="{{ route('order.send') }}">
+                                    @csrf
+                                    <x-secondary-button type="submit" class="mt-3">Envoyer</x-secondary-button>
+                                </form>
+                                <form action="{{ route('order.destroy', $order) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-secondary-button type="submit" class="mt-3">Annuler</x-secondary-button>
+                                </form>
+                            @endif
+                            @if ($order->is_paid)
+                                <form action="{{ route('order.destroy', $order) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-secondary-button type="submit" class="mt-3">Supprimer</x-secondary-button>
+                                </form>
+                            @endif
+                        </div>
 
-                        @endif
 
                     </div>
                 @else

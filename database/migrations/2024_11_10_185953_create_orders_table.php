@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_paid')->default(false);
             $table->boolean('is_sent')->default(false);
+            $table->boolean('is_validated')->default(false);
             $table->timestamps();
         });
     }

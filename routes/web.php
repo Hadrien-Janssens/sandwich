@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\OrderAdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderLigneController;
 use App\Http\Controllers\ProductController;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\View;
 
 
 
+// Not protected by auth middleware
+Route::get('registere/update/{user}', [UserController::class, 'update'])->name('updateRegistere');
+Route::get('/user/edit/{token}', [UserController::class, 'edit'])->name('user.edit');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
@@ -25,17 +29,13 @@ Route::middleware('auth')->group(function () {
         return view('product.index', compact(['products', 'categories']));
     });
 
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/order-admin', function () {
-        if (Auth::user()->role->name === 'user') {
-            return redirect()->route('product.index');
-        }
-        return view('orderAdmin.index');
-    })->name('orderAdmin.index');
+    Route::get('/order-admin-in-process', [OrderAdminController::class, 'in_process'])->name('orderAdmin.in_process');
+    Route::get('/order-admin-end-process', [OrderAdminController::class, 'end_process'])->name('orderAdmin.end_process');
+    Route::get('/order-admin-validate/{order}', [OrderAdminController::class, 'validate'])->name('orderAdmin.validate');
 
     Route::resource('product', ProductController::class);
     Route::resource('user', UserController::class);
@@ -46,8 +46,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Not protected by auth middleware
-Route::get('registere/update/{user}', [UserController::class, 'update'])->name('updateRegistere');
-Route::get('/user/edit/{token}', [UserController::class, 'edit'])->name('user.edit');
+
 
 require __DIR__ . '/auth.php';
